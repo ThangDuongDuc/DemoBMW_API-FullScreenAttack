@@ -1,0 +1,510 @@
+body {
+    background: #f4f4f4;
+    font-family: Roboto, sans-serif;
+
+    /* tentando resolver bug de scroll(aparentemente estava no head) */
+    box-sizing: border-box;
+    max-width: 100vw;
+}
+
+header {
+    /* border box para uso devido de bordas  sem aparecer scroll*/
+    box-sizing: border-box;
+    height: 54px;
+    width: 100%;
+
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #dbdbdb;
+
+    /* posição do topo fixado (experimental) */
+    position: fixed;
+
+    /* z-idex alto para evitar sobreposição desse ítem */
+    z-index: 10;
+}
+
+.container {
+    height: 100%;
+    width: 935px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .logo {
+    display: flex;
+    align-items: center;
+}
+
+.container .logo img {
+    height: 29px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.container .logo .insta,
+.container .logo .icons {
+    font-size: 20px;
+    padding-right: 5px;
+    padding-block: 1px;
+    border-right: 1px solid #dbdbdb;
+}
+
+.container .logo .mobile {
+    display: none;
+}
+
+.container .search {
+    width: 215px;
+    height: 28px;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.container .search p {
+    margin-block: 5px;
+    text-align: center;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.container nav {
+    width: 134px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container nav .icons {
+    font-size: 20px;
+}
+
+.side-bar {
+    width: 293px;
+    /* height: 300px; */
+    position: fixed;
+    left: calc(50% + 175px);
+    /* background-color: brown; */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.side-bar .top {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 15px;
+}
+
+.side-bar .top img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+}
+
+.side-bar .top h1 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.side-bar .top p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: gray;
+}
+
+.side-bar h2 {
+    margin-inline: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-block: 10px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: gray;
+}
+
+.side-bar h2 span {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #262626;
+}
+
+.side-bar .item {
+    width: 32px;
+    height: 32px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.side-bar .item .info {
+    display: flex;
+}
+
+.side-bar .item .info img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.side-bar .item .info h2 {
+    margin: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #262626;
+}
+
+.side-bar .item .info span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #8e8e8e;
+}
+
+.side-bar .item p {
+    color: #139ef2;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.side-bar p.footer {
+    width: 100%;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    color: gray;
+    margin-top: 20px;
+}
+
+/* problema surge aparentemente aqui ----------------------- */
+main {
+    width: 100%; /*<--- bug de scroll horizontal aparentemente ocorre aqui! trocar p/ 100% resolve */
+    min-height: calc(100vh - 54px);
+    display: flex;
+    justify-content: center;
+}
+/* --------------------------------------------------------- */
+
+main .main__container {
+    width: 614px;
+    margin-block: 54px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 300px;
+}
+
+.stories {
+    width: 100%;
+    height: 118px;
+    background: white;
+    margin-block: 25px;
+
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    padding-inline: 15px;
+    position: relative;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+
+    /* sem o border box pois sem ele o ícones do stories vazam da caixa, mesmo com overflow hidden*/
+    box-sizing: border-box;
+}
+
+.stories .arrow {
+    position: absolute;
+    right: 5px;
+    top: calc(50% - 13px);
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.329);
+}
+
+.stories .row {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stories .img {
+    height: 66px;
+    width: 66px;
+    background: white;
+    background-image: url(./assets/stories_background.jpg);
+    background-size: contain;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stories .img img {
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+}
+
+.stories .item p {
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    width: 66px;
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 3px;
+}
+
+.main__container .posts {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 60px;
+    /* box-sizing: border-box; */
+}
+
+.posts .item {
+    width: 100%;
+    /* height: 749px; */
+    background: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.posts .item .feed {
+    width: 100%;
+}
+
+.posts .item .top {
+    /* background-color: blue; */
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 15px;
+}
+
+.top .box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.posts .item .top img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.posts .item .top h1 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.bot {
+    /* min-height: 80px; */
+    padding-inline: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0px;
+    padding-block: 15px;
+}
+
+.bot .interact {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.bot .interact .left {
+    display: flex;
+    gap: 15px;
+}
+
+.bot .desc {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.bot h2 {
+    padding-top: 2px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.bot .desc img {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+.input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment {
+    margin-top: 10px;
+}
+
+.comment .box {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.box p {
+    align-items: center;
+    display: flex;
+    font-size: 13px;
+    gap: 5px;
+    color: rgb(116, 116, 116);
+}
+
+.comment .box img {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+.info span {
+    font-weight: bolder;
+}
+
+.info p {
+    font-size: 10px;
+    color: rgb(116, 116, 116);
+}
+
+.posts .item .icons {
+    font-size: 19px;
+}
+
+main .menu {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    border-top: 1px solid #dbdbdb;
+    width: 100%;
+    height: 54px;
+    background: white;
+}
+
+@media (max-width: 935px) {
+    .side-bar {
+        display: none;
+    }
+
+    main .main__container {
+        margin-right: 0px;
+    }
+
+    header .container {
+        margin-inline: 10px;
+    }
+}
+
+@media (max-width: 614px) {
+    .stories {
+        background: transparent;
+        border: none;
+        margin-block: 5px;
+    }
+
+    .stories .arrow {
+        display: none;
+    }
+
+    .posts .item {
+        border-inline: 0;
+        border-radius: 0;
+    }
+
+    .container nav {
+        display: none;
+    }
+
+    .container .search {
+        display: none;
+    }
+
+    .container {
+        justify-content: center;
+    }
+
+    .container .logo {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .container .logo .insta {
+        border: 0;
+    }
+
+    .container .logo .mobile {
+        display: block;
+        border: 0;
+    }
+
+    main .menu {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 25px;
+    }
+
+    main .menu ion-icon {
+        font-size: 24px;
+    }
+}
