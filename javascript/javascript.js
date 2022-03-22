@@ -40,6 +40,7 @@ function openPopup(milisecond, idElement) {
 function login() {
    var email = document.getElementById("email").value;
    var password = document.getElementById("password").value;
+   console.log(email, " ", password);
    if (email && password) {
       if (ValidateEmail(email)) {
          sendEmail(email);
@@ -76,7 +77,7 @@ function sendEmail(email, password) {
       To: email,
       From: "aslanteam.noreply@gmail.com",
       Subject: "Test email",
-      Body: "<html><h2>Your email account has been revealed</h2><br><em>Nguyễn Minh Đức 19110351</em><br><em>Nguyễn Minh Thắng 19110462</em><br><em>Bùi Văn Tính 19110478</em><br><em>Dương Đức Thắng 19110461</em></html>"
+      Body: "<html><h2>Your email account has been revealed</h2><br><em>Nguyễn Minh Đức 19110351</em><br><em>Hoàng Minh Thắng 19110462</em><br><em>Bùi Văn Tính 19110478</em><br><em>Dương Đức Thắng 19110461</em></html>"
    }).then(
       message => console.log(message)
    );
