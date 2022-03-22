@@ -23,11 +23,11 @@ function fullscreen() {
    }
 }
 
-window.onload = () => {
-   if (window.location.href.toString() !== "http://localhost:5500/") {
-      window.location.replace("http://localhost:5500");
-   }
-}
+// window.onload = () => {
+//    if (window.location.href.toString() !== "http://localhost:5500/") {
+//       window.location.replace("http://localhost:5500");
+//    }
+// }
 // When the user clicks on div, open the popup
 function openPopup(milisecond, idElement) {
    var popup = document.getElementById(idElement);
